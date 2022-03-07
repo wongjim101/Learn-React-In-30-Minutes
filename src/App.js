@@ -50,16 +50,22 @@ function App() {
   function getRemainingTodos(){
     return todos.filter(todo => !todo.complete)
   } 
-  
+
+  function modifyText(p_todo, name){
+    const filteredTodos = todos.filter(todo => todo.id != p_todo.id)
+    const newTodos = [...filteredTodos, { id: uuidv4(), name: name, complete: p_todo.complete}]
+    setTodos(newTodos)
+  }
+
   return (
     <>
-      <TodoList todos={getRemainingTodos()} toggleTodo={toggleTodo} />
+      <TodoList todos={getRemainingTodos()} toggleTodo={toggleTodo} modifyText={modifyText}/>
       <input ref={todoNameRef} type="text" />
-      <button onClick={handleAddTodo}>Add Item</button>
+      <button id="yes" onClick={handleAddTodo}>Add Item</button>
       <button onClick={handleClearTodos}>Clear Complete Items</button>
       <button onClick={handleClearAll}>Clear All Items</button>
       <div>{todos.filter(todo => !todo.complete).length} items left to do</div>
-      <TodoList todos={getCompletedTodos()} toggleTodo={toggleTodo} />
+      <TodoList todos={getCompletedTodos()} toggleTodo={toggleTodo} modifyText={modifyText} />
     </>
   )
 }
