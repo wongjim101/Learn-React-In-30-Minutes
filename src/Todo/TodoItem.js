@@ -1,13 +1,13 @@
 import React from 'react'
 import TodoTextField from './TodoTextField'
 
-export default function Todo({ todo, toggleTodo, modifyText }) {
+export default function TodoItem({ todo, toggleTodo, modifyText, style }) {
   function handleTodoClick() {
     toggleTodo(todo.id)
   }
   
   return (
-    <div>
+    <div style={style}>
       <label>
         <input type="checkbox" checked={todo.complete} onChange={handleTodoClick} />
       </label>      
