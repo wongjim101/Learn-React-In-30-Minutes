@@ -43,14 +43,23 @@ function App() {
     setTodos(newTodos)
   }
 
+  function getCompletedTodos(){
+    return todos.filter(todo => todo.complete)
+  }
+
+  function getRemainingTodos(){
+    return todos.filter(todo => !todo.complete)
+  } 
+  
   return (
     <>
-      <TodoList todos={todos} toggleTodo={toggleTodo} />
+      <TodoList todos={getRemainingTodos()} toggleTodo={toggleTodo} />
       <input ref={todoNameRef} type="text" />
       <button onClick={handleAddTodo}>Add Item</button>
       <button onClick={handleClearTodos}>Clear Complete Items</button>
       <button onClick={handleClearAll}>Clear All Items</button>
       <div>{todos.filter(todo => !todo.complete).length} items left to do</div>
+      <TodoList todos={getCompletedTodos()} toggleTodo={toggleTodo} />
     </>
   )
 }
