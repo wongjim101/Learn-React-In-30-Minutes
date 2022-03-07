@@ -2,12 +2,11 @@ import React , { useState, useRef } from 'react';
 
 export default function TodoTextField({ todo, modifyText }) {
     const inputRef = useRef()
-    const [name, setName] = useState(todo.name)
     const [label, setLabel] = useState("display")
+
     function changeTextFieldState(){
         if (label === "modify"){
             if (inputRef.current.value != ''){
-                setName(inputRef.current.value)
                 modifyText(todo, inputRef.current.value)
                 inputRef.current.value = ''
             }
@@ -20,12 +19,14 @@ export default function TodoTextField({ todo, modifyText }) {
     function handleModifyTextClick(){
         changeTextFieldState()
     }
+    function handleCancelModifyTextClick(){
+        changeTextFieldState()
+    }
 
     if (label === "modify")
         return (
-            <label>
+            <label onBlur={handleModifyTextClick}>
                 <input ref={inputRef} type="text" placeholder={todo.name}/>
-                <button onClick={handleModifyTextClick}>Modify Item</button>
             </label>
         )
     else
